@@ -20,7 +20,7 @@ class Home extends Base {
         $data = $this->setMessages($data);
         $this->load->view('front', $data);
     }
-    
+
     public function register() {
         $data = $this->getViewParameters("Register", "Front");
         $data = $this->setMessages($data);
@@ -40,6 +40,45 @@ class Home extends Base {
         $result['result'] = 200;
         $result['feeds'] = $items;
         echo json_encode($result);
+    }
+
+    public function actionRegister() {
+        $postVars = $this->utils->inflatePost(array('email', 'fullname', 'username', 'password'));
+        if ($this->sqllibs->isExist($this->db, 'members', array("email" => $postVars['email']))) {
+            $this->session->set_flashdata('errorMessage', "Email already registered");
+            redirect($this->agent->referrer());
+            return;
+        }
+        if (strlen($postVars['password']) < 6) {
+            $this->session->set_flashdata('errorMessage', "Password must be 6 characters");
+            redirect($this->agent->referrer());
+            return;
+        }
+        $this->sqllibs->insertRow($this->db, 'members', array(
+            "username" => $postVars['username'],
+            "full_name" => $postVars['fullname'],
+            "email" => $postVars['email'],
+            "password" => md5($postVars['password'])
+        ));
+        $this->session->set_flashdata('message', "Sign Up Successfully!");
+        $this->utils->redirectPage('index.php/Home/login');
+    }
+
+    public function actionLogin() {
+        if ($this->utils->isEmptyPost(array('email', 'password'))) {
+            $this->session->set_flashdata('errorMessage', "Please fill input.");
+            redirect($this->agent->referrer());
+            return;
+        }
+        $postVars = $this->utils->inflatePost(array('email', 'password'));
+        $pw = md5($postVars['password']);
+        if ($this->sqllibs->isExist($this->db, 'members', array("email" => $postVars['email'], "password" => $pw))) {
+            $userInfo = $this->sqllibs->getOneRow($this->db, 'members', array("email" => $postVars['email'], "password" => $pw));
+            $this->session->set_userdata(array("userInfo" => $userInfo));
+            $this->utils->redirectPage('index.php');
+        }
+        $this->session->set_flashdata('errorMessage', "Login Fail");
+        redirect($this->agent->referrer());
     }
 
     public function showsPage() {
@@ -882,44 +921,6 @@ class Home extends Base {
             "member_id" => $id
         ));
         redirect(base_url() . ADMIN_PAGE_MEMBER);
-    }
-
-    public function actionLogin() {
-        if ($this->utils->isEmptyPost(array('user', 'pw'))) {
-            $this->session->set_flashdata('errorMessage', "Please fill input.");
-            $this->utils->redirectPage(ADMIN_PAGE_HOME);
-            return;
-        }
-        $postVars = $this->utils->inflatePost(array('user', 'pw'));
-        $pw = md5($postVars['pw']);
-        if ($this->sqllibs->isExist($this->db, 'employees', array("username" => $postVars['user'], "password" => $pw))) {
-            $userInfo = $this->sqllibs->getOneRow($this->db, 'employees', array("username" => $postVars['user'], "password" => $pw));
-            if ($userInfo->is_admin == 1) { // Admin
-                $this->session->set_userdata(array("level" => "1"));
-            } else {
-                $this->session->set_userdata(array("level" => "0"));
-            }
-            $this->session->set_userdata(array("adminLogin" => "1"));
-            $this->session->set_userdata(array("adminName" => $userInfo->username));
-            $this->session->set_userdata(array("userInfo" => $userInfo));
-            if ($userInfo->is_admin == 1) {
-                $this->utils->redirectPage(ADMIN_PAGE_EMPLOYEE);
-                return;
-            } else {
-                if ($userInfo->channels_management == 1)
-                    $this->utils->redirectPage(ADMIN_PAGE_CHANNEL_CHANNEL);
-                else if ($userInfo->vod_management == 1)
-                    $this->utils->redirectPage(ADMIN_PAGE_VOD_CATEGORY);
-                else if ($userInfo->members_management == 1)
-                    $this->utils->redirectPage(ADMIN_PAGE_MEMBER);
-                return;
-            }
-            return;
-        }
-        $this->session->set_flashdata('errorMessage
-
-        ', "Login Fail");
-        $this->utils->redirectPage(ADMIN_PAGE_HOME);
     }
 
     public function actionLogout() {

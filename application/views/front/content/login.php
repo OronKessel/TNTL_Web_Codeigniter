@@ -1,67 +1,40 @@
 <div class="main-container">
     <div class="container">        
-        <div class="col-md-offset-4 col-md-4"> 
-            <div class="well-box">
-                <div class="row">
-                    <div class="col-md-4">        
-                        <div style="text-align:center;">
-                            <a href="<?php echo base_url(); ?>index.php/Profile/index"><img src="<?php echo base_url(); ?>assets/images/avatar.png" style="width:40%;height:100%;"/></a>
-                        </div>                            
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-md-offset-4 col-md-4"> 
+                <div class="well-box align-middle">
+                    <div class="row" style="text-align:center;">
+                        <img src="<?php echo base_url(); ?>assets/images/logo.png">
                     </div>
-                    <div class="col-md-8">        
-                        <h2 class="bold-text" style="font-size:23px;">Kittycat</h2>
-                        <p>The best cat on the internet  Description will go here.</p>
-                        <label class="follow_button" style="margin-top: 10px;">Follow</label>
+                    <div class="row" style="margin-top:20px;">
+                        <form method="post" action="<?php echo base_url();?>index.php/Home/actionLogin">
+                            <div class="form-group">                            
+                                <input id="email" name="email" type="text" placeholder="E-Mail" class="form-control input-md" required>
+                            </div>                        
+                            <div class="form-group">                            
+                                <input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" required>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-primary" style="width:100%;">Login</button>
+                                <div style="text-align: center;margin-top:10px;">
+                                    <div class="col-md-4" style="height:1px;background-color:#efefef;margin-top:15px;"></div>
+                                    <div class="col-md-4"><label style="font-size:12px;color:#878787;">OR</label></div>
+                                    <div class="col-md-4" style="height:1px;background-color:#efefef;margin-top:15px;"></div>
+                                </div>
+                                <a href="#" class="btn btn-primary" style="width:100%;">Login in with Facebook</a>
+                            </div>
+                        </form>
                     </div>
-                </div>
-            </div>            
-            <div class="tab-content ">
-                <div role="tabpanel" class="tab-pane active vendor-login" id="home">
-
-
-                    <form >
-
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="control-label" for="email">E-mail<span class="required">*</span></label>
-                            <input id="email" name="email" type="text" placeholder="E-Mail" class="form-control input-md" required>
-                        </div>
-
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="control-label" for="password">Password<span class="required">*</span></label>
-                            <input id="password" name="password" type="text" placeholder="Password" class="form-control input-md" required>
-                        </div>
-
-                        <!-- Button -->
-                        <div class="form-group">
-                            <button id="submit" name="submit" class="btn tp-btn-primary tp-btn-lg">Login</button>
-                            <a href="forget-password.html" class="pull-right"> <small>Forgot Password ?</small></a> </div>
-                    </form>
-                </div>
-                <div role="tabpanel" class="tab-pane couple-login" id="profile"><!-- Text input-->
-                    <form >
-
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="control-label" for="email-one">E-mail<span class="required">*</span></label>
-                            <input id="email-one" name="email-one" type="text" placeholder="E-Mail" class="form-control input-md" required>
-                        </div>
-
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="control-label" for="password-one">Password<span class="required">*</span></label>
-                            <input id="password-one" name="password-one" type="text" placeholder="Password" class="form-control input-md" required>
-                        </div>
-
-                        <!-- Button -->
-                        <div class="form-group">
-                            <button name="submit" class="btn tp-btn-primary tp-btn-lg">Login</button>
-                            <a href="forget-password.html" class="pull-right"> <small>Forgot Password ?</small></a> </div>
-                    </form>
+                </div>                        
+                <div class="well-box social-login" style="text-align:center;padding:15px;"> 
+                    <label style="font-weight:400;font-size:14px;color:#878787;">Don't have an account? <a href="<?php echo base_url(); ?>index.php/Home/register" style="color:#002166;font-size:16px;"><span class="">Sign up</span></a></label>
+                </div>                
+                <div style="text-align:center;display:block;"> 
+                    <img src="<?php echo base_url(); ?>assets/images/appstore.png" style="width:40%;height:100%;"/>
+                    <img src="<?php echo base_url(); ?>assets/images/googlestore.png" style="width:40%;height:100%;"/>
                 </div>
             </div>
-            <div class="well-box social-login"> <a href="#" class="btn facebook-btn"><i class="fa fa-facebook-square"></i>Facebook</a> <a href="#" class="btn twitter-btn"><i class="fa fa-twitter-square"></i>Twitter</a> <a href="#" class="btn google-btn"><i class="fa fa-google-plus-square"></i>Google+</a> </div>
         </div>
     </div>
 </div>

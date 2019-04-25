@@ -49,12 +49,12 @@ hr { margin-top: 20px; margin-bottom: 20px; border: 0;border-top: 1px solid #e9e
 /*--------------------
 	Form Field 
 ---------------------*/
-input.form-control { height: 48px; background-color: #fdfdfb; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; border: 1px solid #e9e6e0; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); font-family: 'Montserrat', sans-serif;}
-select.form-control { height: 48px; background-color: #fdfdfb; margin-bottom: 0px; border: 1px solid #e9e6e0; color: #2b212f; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; color: #706a68; -webkit-appearance: none; -moz-appearance: none; background-position: 95% 50%; background-repeat: no-repeat; background-image: url(../images/arrow.png); padding-right: 15px; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); font-family: 'Montserrat', sans-serif; }
+input.form-control { height: 40px; background-color: #fdfdfb; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; border: 1px solid #e9e6e0; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); font-family: 'Montserrat', sans-serif;}
+select.form-control { height: 40px; background-color: #fdfdfb; margin-bottom: 0px; border: 1px solid #e9e6e0; color: #2b212f; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; color: #706a68; -webkit-appearance: none; -moz-appearance: none; background-position: 95% 50%; background-repeat: no-repeat; background-image: url(../images/arrow.png); padding-right: 15px; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); font-family: 'Montserrat', sans-serif; }
 textarea.form-control{background-color: #fdfdfb;-webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; border: 1px solid #e9e6e0; -webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075); box-shadow: inset 0 0px 0px rgba(0, 0, 0, .075);}
 label.control-label{font-size: 13px; font-family: 'Montserrat', sans-serif; color: #706a68; font-weight: normal;}
-button.tp-btn-primary{height: 48px;}
-button.tp-btn-default{height: 48px;}
+button.tp-btn-primary{height: 40px;}
+button.tp-btn-default{height: 40px;}
 .required{color: red;}
 ::selection { background: #00aeaf; color: #fff;}
 .no-padding { padding-left: 0px; padding-right: 0px;}
@@ -746,7 +746,7 @@ p.wp-caption-text { margin-bottom: 0; color: #353535; font-size: 11px;}
 .filter-box{z-index: 99;}
 .filter-form{background: #fff; border: 1px solid #e9e6e0; padding: 30px 20px; margin-top: -1px; margin-right: 0px; margin-left: 0px;}
 .filter-form .control-label{ display: none;}
-form .btn-default{ height: 48px;background-color: #faf9f5; margin-bottom: 0px; border: 1px solid #e9e6e0; color: #2b212f; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; color: #55575a; -webkit-appearance: none; -moz-appearance: none;}
+form .btn-default{ height: 40px;background-color: #faf9f5; margin-bottom: 0px; border: 1px solid #e9e6e0; color: #2b212f; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; color: #55575a; -webkit-appearance: none; -moz-appearance: none;}
 form.btn-default.active.focus,
 .btn-default.active:focus, .btn-default.active:hover,
 .btn-default:active.focus, .btn-default:active:focus,

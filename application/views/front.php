@@ -12,8 +12,10 @@
         <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Istok+Web:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/preloader.css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/sweetalert.css">
 
         <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script> 
+                <script src="<?php echo base_url(); ?>assets/js/sweetalert.min.js"></script>
     </head>
     <body>
         <?php
@@ -28,5 +30,27 @@
         <script src="<?php echo base_url(); ?>assets/js/jquery.sticky.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/header-sticky.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.preloader.min.js"></script>
+
+        <script>
+<?php
+if (isset($message)) {
+    ?>
+                if ('<?php echo $message; ?>' != '')
+                {
+                    swal('<?php echo $message; ?>');
+                }
+    <?php
+}
+if (isset($error)) {
+    ?>
+                if ('<?php echo $error; ?>' != '')
+                {
+                    swal('<?php echo $error; ?>', '', "error");
+                }
+    <?php
+}
+?>
+        </script>
+
     </body>
 </html>
