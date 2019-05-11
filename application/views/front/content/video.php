@@ -1,154 +1,172 @@
-<div class="main-container" style="padding-top:0px;">
-    <div class="row video_frame">
-        <div class="col-md-12">        
-            <video width="100%" controls>
-                <source src="<?php echo base_url(); ?>assets/videos/1.mp4" type="video/ogg">
-                Your browser does not support HTML5 video.
-            </video>
-        </div>
-        <div class="col-md-12">        
-            <p class="video_date_label">MARCH 3, 2019</p>
-        </div>
-        <div class="col-md-4">        
-            <p class="video_item_name">Dogs are scary</p>
-            <div class="row">
-                <div class="col-md-2">        
-                    <div style="text-align:center;">
-                        <a href="<?php echo base_url(); ?>index.php/Profile/index"><img src="<?php echo base_url(); ?>assets/images/avatar.png" style="width:100%;height:100%;"/></a>
-                    </div>                            
-                </div>
-                <div class="col-md-10">        
-                    <h2 class="bold-text" style="font-size:14px;color:#D8D8D8;">Kittycat</h2>                    
-                    <label class="follow_button_small">Follow</label>
+<div class="main-container" style="padding-top:80px;">
+    <div class="video-info">
+        <video class="single-video" controls autoplay="on">
+            <source src="<?php echo base_url() . $videoInfo->file; ?>" type="video/ogg">
+            Your browser does not support HTML5 video.
+        </video>
+        <p class="video_date_label">
+            <?php
+            $date = new DateTime($videoInfo->created);
+            echo $date->format('M d, Y');
+            ?>
+        </p>
+        <div class="video-account-info">
+            <div>
+                <p class="video_item_name"><?php echo $videoInfo->video_title; ?></p>
+                <div class="single-video-account">
+                    <a style="margin-top:auto;margin-bottom:auto;" href="<?php echo base_url(); ?>index.php/Profile/index/<?php echo $videoInfo->memberInfo->username; ?>"><img src="<?php echo base_url(); ?>assets/images/avatar.png" class="video-img"/></a>
+                    <div class="single-video-info">
+                        <h2 class="bold-text" style="font-size:14px;color:#D8D8D8;"><?php echo $videoInfo->memberInfo->username; ?></h2>                    
+                        <?php
+                        if ($this->session->userInfo == '') {
+                            ?>
+                            <button id='btnFollow' data-follow='0' class="btn-follow-small" disabled>Follow</button>
+                            <?php
+                        } else if ($this->session->userInfo->member_id == $videoInfo->member_id) {
+                            ?>
+                            <button id='btnFollow' data-follow='0' class="btn-follow-small" disabled>Follow</button>
+                            <?php
+                        } else {
+                            if ($isFollow) {
+                                ?>
+                                <button id='btnFollow' data-follow='0' class="btn-followed-small">Following</button>
+                                <?php
+                            } else {
+                                ?>
+                                <button id='btnFollow' data-follow='0' class="btn-follow-small">Follow</button>
+                                <?php
+                            }
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">        
-
-        </div>
-        <div class="col-md-2">
-            <img src="<?php echo base_url(); ?>assets/images/eye.png" style="width:24px;height:15px;"/><span>
-                <label class="video_item_name">2,113,245</label>
-            </span>
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="<?php echo base_url(); ?>assets/images/emoji.png" style="width:17px;height:17px;"/>
-                    <p style="margin-bottom: 5px;">89%</p>
-                </div>
-                <div class="col-md-4">
-                    <img src="<?php echo base_url(); ?>assets/images/like.png" style="width:17px;height:17px;"/>
-                    <p style="margin-bottom: 5px;">201</p>
-                </div>
-                <div class="col-md-4">
-                    <img src="<?php echo base_url(); ?>assets/images/unlike.png" style="width:17px;height:17px;"/>
-                    <p style="margin-bottom: 5px;">432</p>
-                </div>
-                <div class="col-md-4">
-                    <img src="<?php echo base_url(); ?>assets/images/share.png" style="width:17px;height:17px;"/>                    
-                </div>
-                <div class="col-md-4">
-                    <img src="<?php echo base_url(); ?>assets/images/plus.png" style="width:17px;height:17px;"/>                    
-                </div>
-                <div class="col-md-4">
-                    <img src="<?php echo base_url(); ?>assets/images/warning.png" style="width:17px;height:17px;"/>                    
+            <div style="text-align:right;width:100%;">
+                <img src="<?php echo base_url(); ?>assets/images/eye.png" style="width:24px;height:15px;"/><span>
+                    <label class="video_item_name"><?php echo $videoInfo->view_count; ?></label>
+                </span>
+                <div class="single-video-control">
+                    <div class="single-video-single-control" style="margin-left: auto;">
+                        <img src="<?php echo base_url(); ?>assets/images/emoji.png" style="width:17px;height:17px;"/>
+                        <p class="video-control-text" style="color:#40a14a;">89%</p>
+                        <img src="<?php echo base_url(); ?>assets/images/share.png" style="width:17px;height:17px;margin-top:5px;"/>
+                    </div>
+                    <div class="single-video-single-control" style="margin-left: 15px;">
+                        <?php
+                        if ($videoInfo->like) {
+                            ?>
+                            <img onclick="likeVideo(this)" id='img_like_<?php echo $videoInfo->id; ?>' data-like="1" data-video="<?php echo $videoInfo->id; ?>" src="<?php echo base_url(); ?>assets/images/like_p.png" style="width:17px;height:17px;"/>
+                            <?php
+                        } else {
+                            ?>
+                            <img onclick="likeVideo(this)" id='img_like_<?php echo $videoInfo->id; ?>' data-like="0" data-video="<?php echo $videoInfo->id; ?>" src="<?php echo base_url(); ?>assets/images/like.png" style="width:17px;height:17px;"/>
+                            <?php
+                        }
+                        ?>
+                        <p class="video-control-text" id='like_<?php echo $videoInfo->id; ?>'><?php echo $videoInfo->lk_count; ?></p>
+                        <img src="<?php echo base_url(); ?>assets/images/plus.png" style="width:17px;height:17px;margin-top:5px;"/>
+                    </div>
+                    <div class="single-video-single-control" style="margin-left: 15px;">
+                        <?php
+                        if ($videoInfo->unlike) {
+                            ?>
+                            <img onclick="unlikeVideo(this)" id='img_unlike_<?php echo $videoInfo->id; ?>' data-unlike="1" data-video="<?php echo $videoInfo->id; ?>" name="video-unlike" src="<?php echo base_url(); ?>assets/images/unlike_p.png" style="width:17px;height:17px;"/>
+                            <?php
+                        } else {
+                            ?>
+                            <img onclick="unlikeVideo(this)" id='img_unlike_<?php echo $videoInfo->id; ?>' data-unlike="0" data-video="<?php echo $videoInfo->id; ?>" name="video-unlike" src="<?php echo base_url(); ?>assets/images/unlike.png" style="width:17px;height:17px;"/>
+                            <?php
+                        }
+                        ?>
+                        <p class="video-control-text" id='unlike_<?php echo $videoInfo->id; ?>'><?php echo $videoInfo->ulk_count; ?></p>
+                        <img src="<?php echo base_url(); ?>assets/images/warning.png" style="width:17px;height:17px;margin-top:5px;"/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container" style="margin-top:10px;">                
-        <div class="row">
-            <div class="col-md-8"><!-- content left -->                
-                <div class="well-box corner-radius">
-                    <div class="row">
-                        <div class="input-group">
-                            <input type="text" placeholder="Comment here..." class="form-control"/>
-                            <span class="input-group-btn">
-                                <button class="btn tp-btn-default tp-btn-lg" type="button">Send</button>
-                            </span>
-                        </div>
-                        <div class="comments" style="margin-top:10px;">                                                                                    
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2" style="text-align: center;padding-right:0px;">
-                                    <img src="<?php echo base_url(); ?>assets/images/avatar.png" style="width:50%;height:100%;"/>
-                                </div>
-                                <div class="col-md-10">
-                                    <p>Jonathan</p>
-                                    <p>Example comment here!!!</p>
-                                </div>
-
-                            </div>                            
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2" style="text-align: center;padding-right:0px;">
-                                    <img src="<?php echo base_url(); ?>assets/images/avatar.png" style="width:50%;height:100%;"/>
-                                </div>
-                                <div class="col-md-10">
-                                    <p>Jonathan</p>
-                                    <p>Example comment here!!!</p>
-                                </div>
-
-                            </div>
-                            <div class="row" style="margin-top:10px;">
-                                <div class="col-md-2" style="text-align: center;padding-right:0px;">
-                                    <img src="<?php echo base_url(); ?>assets/images/avatar.png" style="width:50%;height:100%;"/>
-                                </div>
-                                <div class="col-md-10">
-                                    <p>Jonathan</p>
-                                    <p>Example comment here!!!</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <p class="loadmore">Load more...</p>                        
+    <div class="video-extra-info">
+        <div class="video-extra-comment">
+            <div class="video-self-comment">
+                <img src="<?php echo base_url(); ?>assets/images/avatar.png" class="video-img-small"/>
+                <form method="POST" action="<?php echo base_url(); ?>index.php/Video/actionComment">
+                    <?php
+                    $disable = "disabled";
+                    if ($this->session->userInfo != '') {
+                        $disable = "";
+                    }
+                    ?>
+                    <div style="display:flex;">
+                        <input type="hidden" name="memberId" value="<?php if ($this->session->userInfo != '')
+                        echo $this->session->userInfo->member_id;
+                    else
+                        echo "";
+                    ?>"/>
+                        <input type="hidden" name="postId" value="<?php echo $videoInfo->id; ?>"/>
+                        <input type="text" class="video-comment" name="content" placeholder="Comment here" <?php echo $disable; ?> required/>
+                        <button type="submit" class="button-video-comment" <?php echo $disable; ?>>Send</button>
                     </div>
+                </form>
+            </div>
+            <div class="separate-line"></div>
+            <div style="position:relative">
+                <p class="sort-text" id="sort_button" style="margin-right:10px;">Most Recent</p>
+                <div class="sort-content" id="sort-content" style="position:absolute;left:240px"> 
+                    <p class="sort-item" id="sort-recent">Most Recent</p>
+                    <div class="separate-line" style="margin-top:0px;"></div>
+                    <p class="sort-item" id="sort-old">Oldest</p>
                 </div>
             </div>
-            <div class="col-md-4"><!-- content left -->                
-                <div class="well-box corner-radius">                    
-                    <div class="row">
-                        <div class="col-md-4">
-                            <a href="">
-                                <video width="100%" style="border-radius: 10px;">
-                                    <source src="<?php echo base_url(); ?>assets/videos/1.mp4" type="video/ogg">
-                                    Your browser does not support HTML5 video.
-                                </video>                                
-                            </a>
-                        </div>
-                        <div class="col-md-8">                                    
-                            <h3 class="bold-text">Dogs are scary</h3>
-                            <p>1.9M views - 2 days ago</p>                                
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <a href="">
-                                <video width="100%" style="border-radius: 10px;">
-                                    <source src="<?php echo base_url(); ?>assets/videos/1.mp4" type="video/ogg">
-                                    Your browser does not support HTML5 video.
-                                </video>                                
-                            </a>
-                        </div>
-                        <div class="col-md-8">                                    
-                            <h3 class="bold-text">Dogs are scary</h3>
-                            <p>1.9M views - 2 days ago</p>                                
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <a href="">
-                                <video width="100%" style="border-radius: 10px;">
-                                    <source src="<?php echo base_url(); ?>assets/videos/1.mp4" type="video/ogg">
-                                    Your browser does not support HTML5 video.
-                                </video>                                
-                            </a>
-                        </div>
-                        <div class="col-md-8">                                    
-                            <h3 class="bold-text">Dogs are scary</h3>
-                            <p>1.9M views - 2 days ago</p>                                
-                        </div>
+            <div id="video-comments">
+
+            </div>
+
+        </div>
+        <div class="video-extra-video">
+<?php
+foreach ($videos as $video) {
+    ?>
+                <div class="video-extra-item">
+                    <a href="<?php echo base_url() . "index.php/Video/index/" . $video->id; ?>">
+                        <video class="video-extra">
+                            <source src="<?php echo base_url() . $video->file; ?>" type="video/ogg">
+                            Your browser does not support HTML5 video.
+                        </video>
+                    </a>
+                    <div class="video-extra-item-info">
+                        <p class="video-extra-item-title"><?php echo $video->video_title; ?></p>
+                        <p class="video-extra-item-info1"><?php echo $video->view_count; ?> views <?php echo $video->elapse; ?></p>
                     </div>
                 </div>
-            </div>
-        </div>        
+    <?php
+}
+?>
+        </div>
     </div>
 </div>
-<script src="assets/tntl_js/home.js"></script>
+<script type="text/javascript">
+    var baseUrl = '<?= base_url(); ?>';
+    var memberId = '';
+    var videoId = '<?php echo $videoInfo->id; ?>';
+    var profileId = '<?php echo $videoInfo->member_id; ?>';
+    var isLogin = "<?php if ($this->session->userInfo == '')
+    echo "0";
+else
+    echo "1";
+?>";
+    var isFollow = "<?php if ($isFollow)
+    echo "1";
+else
+    echo "0";
+?>";
+    if (isLogin == '1')
+    {
+        memberId = "<?php if ($this->session->userInfo == '')
+    echo "";
+else
+    echo $this->session->userInfo->member_id;
+?>";
+    }
+</script>
+<script src="<?php echo base_url(); ?>assets/tntl_js/feed.js"></script>
+<script src="<?php echo base_url(); ?>assets/tntl_js/video.js"></script>

@@ -40,7 +40,7 @@ $config['dbcollat'] = "utf8_general_ci";
 
 
 
-$config['base_url'] = 'http://192.168.1.137:8088/TNTL';
+$config['base_url'] = 'http://192.168.1.113:8088/TNTL';
 
 
 /*

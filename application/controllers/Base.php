@@ -15,7 +15,6 @@ class Base extends CI_Controller {
         $this->load->library('utils');
         $this->load->library('sqllibs');
         $this->load->library('user_agent');
-        $this->load->library('scheduleLib');
         $this->lang->load('admin_lang');
     }
 
@@ -46,6 +45,29 @@ class Base extends CI_Controller {
         $data['pageName'] = $pageName;
         $data['role'] = $role;
         return $data;
+    }
+
+    public function getDetailInfo($feed)
+    {
+        $date = new DateTime();
+        $videoDate = new DateTime($feed->created);
+        $memberInfo = $this->sqllibs->getOneRow($this->db, "members", array('member_id' => $feed->member_id));
+        $unlikeInfo = NULL;
+        $likeInfo = NULL;
+        if ($this->session->userInfo != '')
+        {
+            $unlikeInfo = $this->sqllibs->getOneRow($this->db, "video_follow_unlike", array('member_id' => $this->session->userInfo->member_id,'video_id' => $feed->id));
+            $likeInfo = $this->sqllibs->getOneRow($this->db, "video_follow_like", array('member_id' => $this->session->userInfo->member_id,'video_id' => $feed->id));
+            $feed->unlike = true;    
+            $feed->like = true;
+        }
+        $feed->elapse = $this->utils->makeTimeString($date->getTimestamp(),$videoDate->getTimestamp());
+        if ($unlikeInfo == NULL)
+            $feed->unlike = false;    
+        if ($likeInfo == NULL)
+            $feed->like = false;    
+        $feed->memberInfo = $memberInfo;
+        return $feed;
     }
 
 }

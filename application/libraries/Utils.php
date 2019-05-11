@@ -133,4 +133,33 @@ class Utils
         }
         return $randomString;
     }
+
+    public function makeTimeString($time1,$time2)
+    {
+        $diff = $time1 - $time2;
+        $days = $diff / (3600 * 24);
+        if ($days < 1)
+        {
+            return "Less than a day";
+        }
+        else if ($days > 365)
+        {
+            $years = $days / 365;
+            return intval($years)." years ago";
+        }
+        else if ($days > 30)
+        {
+            $month = $days / 30;
+            return intval($month)." months ago";
+        }
+        else if ($days > 7)
+        {
+            $weeks = $days / 7;
+            return intval($weeks)." weeks ago";
+        }
+        else{
+            return intval($days)." days ago";
+        }
+
+    }
 }

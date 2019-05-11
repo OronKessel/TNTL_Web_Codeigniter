@@ -1,76 +1,63 @@
-<div class="main-container" style="padding-top:0px;">    
-    <div class="container" style="margin-top:10px;">                
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4 well-box corner-radius">
-                <div class="row" style="margin-top:10px;">
-                    <div class="col-md-2" style="text-align: center;padding-right:0px;">
-                        <img src="<?php echo base_url(); ?>assets/images/avatar.png" style="width:100%;height:100%;"/>
+<div class="main-container" style="padding-top:80px;">
+    <div>
+    <?php
+    foreach($members as $member)
+    {
+        ?>
+        <a style="text-decoration:none;" href='<?php echo base_url()."index.php/Profile/index/".$member->member_id;?>'>
+            <div class="single-video-search2">
+                <img src="<?php echo base_url(); ?>assets/images/notification.png" class="img-top-icon"/>
+                <div class="search-account-info">
+                    <div class="single-video-account">
+                        <p class="search-account-name"><?php echo $member->username;?></p>
+                        <p class="search-account-follow" style="text-align:right;"><?php echo $member->followings;?> followers</p>
                     </div>
-                    <div class="col-md-10">
-                        <p>Jonathan</p>
-                        <p>Example comment here!!!</p>
-                    </div>
-
+                    <p class="search-account-desc"><?php echo $member->description;?></p>
                 </div>
             </div>
-            <div class="col-md-4"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4 well-box corner-radius">
-                <div class="row" style="margin-top:10px;">
-                    <div class="col-md-2" style="text-align: center;padding-right:0px;">
-                        <img src="<?php echo base_url(); ?>assets/images/avatar.png" style="width:100%;height:100%;"/>
+        </a>
+        <?php
+    }
+    ?>
+    </div>
+    <div>
+        <?php
+        foreach($videos as $video)
+        {
+            ?>
+            <a href="<?php echo base_url()."index.php/Video/index/".$video->id;?>" style="text-decoration:none;">
+            <div class="search-video-item">
+                <video class="video-search-container">
+                    <source src="<?php echo base_url().$video->file;?>" type="video/ogg">
+                    Your browser does not support HTML5 video.
+                </video>
+                <div class="video-extra-item-info">
+                    <p class="search-video-title"><?php echo $video->video_title;?></p>
+                    <p class="search-video-detail-info"><?php echo $video->view_count;?> views <?php echo $video->elapse;?></p>
+                    <div style="display:flex;margin-top:20px;">
+                        <img src="<?php echo base_url(); ?>assets/images/notification.png" class="img-search-icon"/>
+                        <div style="margin-left:10px;">
+                            <p class="search-video-detail-info"><?php echo $video->memberInfo->username;?></p>
+                            <p class="search-video-detail-info"><?php echo $video->memberInfo->followings;?> followers</p>
+                        </div>
                     </div>
-                    <div class="col-md-10">
-                        <p>Jonathan</p>
-                        <p>Example comment here!!!</p>
-                    </div>
-
                 </div>
             </div>
-            <div class="col-md-4"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 well-box corner-radius">
-                <div class="row" style="margin-top:10px;">
-                    <div class="col-md-4">
-                        <a href="">
-                            <video width="100%" style="border-radius: 10px;">
-                                <source src="<?php echo base_url(); ?>assets/videos/1.mp4" type="video/ogg">
-                                Your browser does not support HTML5 video.
-                            </video>                                
-                        </a>
-                    </div>
-                    <div class="col-md-8">                                    
-                        <h3 class="bold-text">Dogs are scary</h3>
-                        <p>1.9M views - 2 days ago</p>                                
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 well-box corner-radius">
-                <div class="row" style="margin-top:10px;">
-                    <div class="col-md-4">
-                        <a href="">
-                            <video width="100%" style="border-radius: 10px;">
-                                <source src="<?php echo base_url(); ?>assets/videos/1.mp4" type="video/ogg">
-                                Your browser does not support HTML5 video.
-                            </video>                                
-                        </a>
-                    </div>
-                    <div class="col-md-8">                                    
-                        <h3 class="bold-text">Dogs are scary</h3>
-                        <p>1.9M views - 2 days ago</p>                                
-                    </div>
-
-                </div>
-            </div>
-        </div>
+            </a>
+            <?php
+        }
+        ?>
     </div>
 </div>
-<script src="assets/tntl_js/home.js"></script>
+<script type="text/javascript">
+    var baseUrl = '<?= base_url(); ?>';
+    var memberId = '';
+    var isLogin = "<?php if ($this->session->userInfo == '') echo "0";else echo "1";?>";
+    if (isLogin == '1')
+    {
+        memberId = "<?php  if ($this->session->userInfo == '') echo ""; else echo $this->session->userInfo->member_id;?>";
+    }
+</script>
+
+<script src="<?php echo base_url();?>assets/tntl_js/feed.js"></script>
+<script src="<?php echo base_url();?>assets/tntl_js/profile.js"></script>

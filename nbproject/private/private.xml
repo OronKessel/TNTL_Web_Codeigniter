@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp1/htdocs/TNTL/application/controllers/Home.php</file>
-            <file>file:/C:/xampp1/htdocs/TNTL/application/views/front/header.php</file>
-            <file>file:/C:/xampp1/htdocs/TNTL/application/views/front.php</file>
-            <file>file:/C:/xampp1/htdocs/TNTL/application/views/front/content/home.php</file>
             <file>file:/C:/xampp1/htdocs/TNTL/assets/css/style_customize.css</file>
+            <file>file:/C:/xampp1/htdocs/TNTL/assets/css/style.css</file>
+            <file>file:/C:/xampp1/htdocs/TNTL/assets/tntl_js/home.js</file>
         </group>
     </open-files>
 </project-private>

@@ -8,8 +8,7 @@
 .top-menu_icon:hover{
     background-color: #D7D7D7;
 }
-.left-info{
-    margin-top:10px;
+.left-info{    
     text-align: center;
     padding:5px;
 }
@@ -32,6 +31,7 @@
     width:100%;
     text-align:right;
     color:#c2c1c1;
+    margin-bottom:5px;
 }
 .loadmore{
     font-size: 12px;
@@ -115,4 +115,32 @@
 .img30{
     width:30%;
     height:100%;
+}
+@media (max-width: 990px){ 
+    .loginBox{
+        width:400px;
+        margin:auto;
+    }
+}
+
+@media (min-width: 990px){ 
+    .loginBox{
+        width:400px;
+        
+    }
+}
+
+@media (min-width: 720px){ 
+    .feedBox{
+        width:700px;
+    }
+    .leftFeedBar{
+        width:80px;
+    }
+    .feedItemFrame{
+        width:620px;
+    }
+    .videoFrame{
+        width:540px
+    }
 }
